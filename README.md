@@ -20,3 +20,6 @@
 > (P > Q) ∈ P(v), the implication between P,Q
 
 > (P - Q) ∈ P(v), the equivalence of P,Q
+
+## Example
+(P - (Q & R))
