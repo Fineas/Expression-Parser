@@ -23,8 +23,11 @@
 
 ## Valid Examples
 (P - (Q & R))
+
 A
+
 (P&((!Q)&(!(!(Q~(!R))))))
+
 
 ## Note
 *This program was designed in order to automatically solve similar excercises (homework assignment).*  
