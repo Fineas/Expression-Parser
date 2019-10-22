@@ -22,11 +22,11 @@
 > (P ~ Q) ∈ P(v), the equivalence of P,Q
 
 ## Valid Examples
-(P - (Q & R))
+> (P - (Q & R))
 
-A
+> A
 
-(P&((!Q)&(!(!(Q~(!R))))))
+> (P&((!Q)&(!(!(Q~(!R))))))
 
 
 ## Note
