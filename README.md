@@ -6,7 +6,7 @@
 > A, B, F, G, H, P, Q, R, F1 ... Fn ...
 
 *Logical Connections*
-> ! (not), & (and), | (or), > (implication), - (equivalent)
+> ! (not), & (and), | (or), > (implication), ~ (equivalent)
 
 ## Expressions of Propositional Logic
 *if P,Q ∈ P(v) then:*
@@ -19,7 +19,12 @@
 
 > (P > Q) ∈ P(v), the implication between P,Q
 
-> (P - Q) ∈ P(v), the equivalence of P,Q
+> (P ~ Q) ∈ P(v), the equivalence of P,Q
 
-## Example
+## Valid Examples
 (P - (Q & R))
+A
+(P&((!Q)&(!(!(Q~(!R))))))
+
+## Note
+*This program was designed in order to automatically solve similar excercises (homework assignment).*  
