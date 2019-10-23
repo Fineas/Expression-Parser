@@ -28,6 +28,8 @@
 
 > (P&((!Q)&(!(!(Q~(!R))))))
 
+![first exmaple](https://raw.githubusercontent.com/Fineas/Expression-Parser/master/img/example1.png)
+
 
 ## Note
 *This program was designed in order to automatically solve similar excercises (homework assignment).*  
