@@ -33,11 +33,17 @@
 ## Interpretation
 
 > A = True, B = True, C = True, D = False
+
 > (A & (B | (C & (!D))))
+
 > (True & (True | (True & (!False))))
+
 > (True & (True | (True & True)))
+
 > (True & (True | True))
+
 > (True & True)
+
 > True
 
 ## Note
