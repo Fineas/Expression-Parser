@@ -30,6 +30,15 @@
 
 ![first exmaple](https://raw.githubusercontent.com/Fineas/Expression-Parser/master/img/example1.png)
 
+## Interpretation
+
+> A = True, B = True, C = True, D = False
+> (A & (B | (C & (!D))))
+> (True & (True | (True & (!False))))
+> (True & (True | (True & True)))
+> (True & (True | True))
+> (True & True)
+> True
 
 ## Note
 *This program was designed in order to automatically solve similar excercises (homework assignment).*  
