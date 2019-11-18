@@ -28,6 +28,39 @@ final = False
 # subroutines
 # =============
 
+'''
+equivalence = [
+    [(F~G),(F>G)&(G>F)], # Reduction Law
+    [(F>G),(!F|G)],
+    [F|G,G|F], # Comutative Law
+    [F&G,G&F],
+    [F~G,G~F],
+    [(F|G)|H,F|(G|H)], # Associative Laws
+    [(F&G)&H,F&(G&H)],
+    [(F~G)~H,F~(G~H)],
+    [F&(G&H),(F|G)&(F|H)], # Distributive Laws
+    [F&(G|H),(F&G)|(F&H)],
+    [(F|G)>H,(F>H)&(G>H)],
+    [(F&G)>H,(F>H)|(G>H)],
+    [F>(G|H),(F>G)|(F>H)],
+    [F>(G&H),(F>G)&(F>H)],
+    [(F&G)>H,F>(G>H)],
+    [!1,0], # Laws of True and Flase
+    [!0∼1],
+    [F|0,F],
+    [F&1,F],
+    [F|1,1],
+    [F&0,0],
+    [0>F,1],
+    [F>1,1],
+    [F|(F&G),F], # Absortion Laws
+    [F&(F|G),F],
+    [!(!F),F], # Negation Laws - double negation
+    [!(F|G),!F&!G], # De Morgan
+    [!(F&G),!F|!G], # De Morgan
+]
+'''
+
 def xor(x,y):
     return (((not y) and x) or ((not x) and y))
 
@@ -41,11 +74,23 @@ func_and = lambda x,y : x&y
 # print func_and(False,True) == False
 # print func_and(False,False) == False
 
+func_nand = lambda x,y : not func_and(x,y)
+# print func_nand(True,True) == False
+# print func_nand(True,False) == True
+# print func_nand(False,True) == True
+# print func_nand(False,False) == True
+
 func_or = lambda x,y : x|y
 # print func_or(True,True) == True
 # print func_or(True,False) == True
 # print func_or(False,True) == True
 # print func_or(False,False) == False
+
+func_nor = lambda x,y : not func_or(x,y)
+# print func_nor(True,True) == False
+# print func_nor(True,False) == False
+# print func_nor(False,True) == False
+# print func_nor(False,False) == True
 
 func_impl = lambda x,y : ((not x) or y)
 # print func_impl(True,True) == True
@@ -59,8 +104,10 @@ func_equ = lambda x,y : not xor(x,y)
 # print func_equ(False,True)
 # print func_equ(False,False)
 
-# exaple: [[P,>,[!,[!,[!,[!,[!,B]]]]]],~,[Q,&,S]]
-def parse_list():
+# =============
+# methods
+# =============
+def parse_list(): # convert from array input to string expression
     global var_name
     global constants
 
@@ -77,7 +124,7 @@ def parse_list():
     print '['+colored('*','red')+'] SENTENCE:',input
     return input
 
-def banner():
+def banner(): # display the header
     print '='*20
     print colored('Expression Parser', 'cyan', attrs=['bold'])
     print '='*20
@@ -94,7 +141,7 @@ def read_expression():
             var_name.append(i)
     print ''
 
-def read_var_values():
+def read_var_values(): # extract all unique variables from the expression
     global var_name
     global var_values
     global EXP
@@ -113,7 +160,7 @@ def read_var_values():
                 exit(0)
             print ''
 
-def print_tree():
+def print_tree(): # print an ascii view of the expression tree
     global root
 
     print '-'*30
@@ -122,13 +169,13 @@ def print_tree():
         print("%s%s" % (pre, node.name))
     print '-'*30
 
-def generate_picture():
+def generate_picture(): # map the expression to a PNG
     global root
 
     from anytree.exporter import DotExporter
     DotExporter(root).to_picture("./exp_tree.png")
 
-def validate(debug=1):
+def validate(debug=1): # parse the expression and validate it + interpret it
     global EXP
     global var_name
     global var_values
@@ -147,6 +194,7 @@ def validate(debug=1):
                 print EXP,'is an ATOM'
                 print '-'*30
                 print '['+colored('*','green')+'] Well Fromed Expression :)'
+            final = var_values[var_name.index(EXP[0])]
             return
         else:
             if debug:
@@ -415,13 +463,13 @@ def validate(debug=1):
             print '['+colored('*','red')+'] Not Well Formed Sentence\n'
         valid = 0; return
 
-def scoate(v):
+def extract_exp(v):
     global arrays
     if v not in arrays:
         arrays.append(v)
     for child in v:
         if type(child) is list:
-            scoate(child)
+            extract_exp(child)
 
 def generate_truth_table():
     global EXP
@@ -438,7 +486,7 @@ def generate_truth_table():
         spl_exp = spl_exp.replace(i,"'"+i+"'")
 
     spl_exp = eval(spl_exp)
-    scoate(spl_exp)
+    extract_exp(spl_exp)
 
     do_parse = []
 
@@ -512,6 +560,18 @@ def generate_truth_table():
     EXP = save_exp
 
 def relax(expression):
+    caca = 1
+    # TODO
+
+def trans_to_NNF(expression):
+    caca = 1
+    # TODO
+
+def trans_to_CNF(expression):
+    caca = 1
+    # TODO
+
+def trans_to_DNF(expression):
     caca = 1
     # TODO
 
@@ -626,9 +686,22 @@ if __name__ == "__main__":
 #  TESTS
 # ================
 '''
+Normal Syntax
 1. (((P>Q)|S)~T)
 2. (P>(Q&(S>T))))
 3. (!(B(!Q))&R)
 4. (P&((!Q)&(!(!(F~(!R))))))
 5. (P|Q)>!(P|Q))&(P|(!(!Q)))
+
+Relaxed Syntax
+P ^ !Q
+
+Normal Form
+
+Negation Form
+
+Conjunctive Form
+
+Disjunctive Form
+
 '''
